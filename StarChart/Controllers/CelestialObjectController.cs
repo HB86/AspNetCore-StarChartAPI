@@ -11,7 +11,8 @@ namespace StarChart.Controllers
 {
 
 
-    [Route("ApiController")]
+    [Route("")]
+    [ApiController]
   
     public class CelestialObjectController : ControllerBase
     {
