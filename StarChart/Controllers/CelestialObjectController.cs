@@ -27,10 +27,11 @@ namespace StarChart.Controllers
 
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CelestialObject>> GetById(int id)
+        [HttpGet("{id:int}")]
+        public IActionResult GetById(int id)
         {
-            var celestialObject = await _context.CelestialObjects.FindAsync(id);
+            var celestialObject = _context.CelestialObjects.FindAsync(id);
+
 
             if (celestialObject == null)
             {
@@ -39,14 +40,14 @@ namespace StarChart.Controllers
             }
 
 
-            return celestialObject;
+            return Ok(celestialObject);
 
         }
 
         [HttpGet("{name}")]
-        public async Task <ActionResult<CelestialObject>> GetByName(string Name)
+        public IActionResult GetByName(string Name)
         {
-            var celestialObject = await _context.CelestialObjects.FindAsync(Name);
+            var celestialObject = _context.CelestialObjects.FindAsync(Name);
 
 
             if (celestialObject == null)
@@ -56,7 +57,7 @@ namespace StarChart.Controllers
             }
 
 
-            return celestialObject;
+            return Ok(celestialObject);
 
         }
 
