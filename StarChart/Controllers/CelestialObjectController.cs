@@ -19,6 +19,7 @@ namespace StarChart.Controllers
 
         private readonly ApplicationDbContext _context;
 
+
         public CelestialObjectController(ApplicationDbContext context)
         {
 
@@ -30,7 +31,7 @@ namespace StarChart.Controllers
         [HttpGet("{id:int}")]
         public IActionResult GetById(int id)
         {
-            var celestialObject = _context.CelestialObjects.FindAsync(id);
+            var celestialObject = _context.CelestialObjects.FirstOrDefault(c => c.OrbitedObjectId == id);
 
 
             if (celestialObject == null)
@@ -47,7 +48,7 @@ namespace StarChart.Controllers
         [HttpGet("{name}")]
         public IActionResult GetByName(string Name)
         {
-            var celestialObject = _context.CelestialObjects.FindAsync(Name);
+            var celestialObject = _context.CelestialObjects.FirstOrDefault(c => c.Name == Name);
 
 
             if (celestialObject == null)
@@ -61,5 +62,31 @@ namespace StarChart.Controllers
 
         }
 
-    }
+
+      public IActionResult GetAll()
+        {
+
+            List<CelestialObject> celestials = null;
+
+
+            celestials = _context.CelestialObjects.ToList();
+
+            if(celestials.Count == 0)
+            {
+
+                return NotFound();
+
+            }
+
+            return Ok(celestials);
+
+
+
+
+        }
+
+
 }
+
+}
+
