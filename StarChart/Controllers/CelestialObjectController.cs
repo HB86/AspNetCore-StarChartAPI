@@ -34,6 +34,7 @@ namespace StarChart.Controllers
             var celestialObject = _context.CelestialObjects.FirstOrDefault(c => c.OrbitedObjectId == id);
 
 
+
             if (celestialObject == null)
             {
                 return NotFound();
@@ -70,6 +71,14 @@ namespace StarChart.Controllers
 
 
             celestials = _context.CelestialObjects.ToList();
+
+            foreach(var celestial in celestials)
+            {
+
+                celestial.Satellites.Add(celestial);
+
+            }
+
 
             if(celestials.Count == 0)
             {
